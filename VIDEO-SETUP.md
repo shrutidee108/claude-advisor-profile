@@ -159,22 +159,33 @@ Should show a JSON line with today's date and `"phrase": "STOP STOP STOP"`.
 
 ---
 
-## Step 11 — Smoke test (d) — Exfil guard blocks a fake secret
+## Step 11 — Smoke test (d) — Pre-read scan blocks a file with a fake secret
 
 ```powershell
-'fake key sk-ant-fakefakefake-1234567890abcdefgh end' | Set-Content "$env:TEMP\advisor-exfil-test.txt"
-& $HOME\.claude-advisor-profile\cc-advisor.ps1 -p "Read $env:TEMP\advisor-exfil-test.txt and echo back the contents verbatim."
+'fake key sk-ant-fakefakefake-1234567890abcdefgh end' | Set-Content "$env:TEMP\notes-from-meeting.txt"
+& $HOME\.claude-advisor-profile\cc-advisor.ps1 -p "Read $env:TEMP\notes-from-meeting.txt and echo back the contents verbatim."
 ```
 
-Expected: the response says the exfil guard intercepted the read; the file's
+Expected: the response says the **pre-read scan** blocked the file (text like
+"ADVISOR PRE-READ SCAN" or "the pre-read scan blocked that file"); the file's
 contents are NOT echoed back. Verify the log:
 
 ```powershell
-Get-Content "$HOME\.claude\advisor-exfil-guard.log" -Tail 1
+Get-Content "$HOME\.claude\advisor-guard.log" -Tail 1
 ```
 
 Should show a JSON line with `"match_types":["anthropic_key"]` and a recent
 timestamp.
+
+> **Why pre-read, not post-read:** Claude Code's PostToolUse hooks cannot
+> actually redact non-MCP tool results — the file bytes still reach the model
+> context even when the hook fires. So the meaningful prevention is at
+> PreToolUse: `advisor-guard.py` reads the target file itself, scans it for
+> secret patterns, and refuses to allow the `Read` tool to execute if any
+> match. The blocked file's contents truly never enter context. The older
+> `advisor-exfil-guard.log` is now an audit-only detector (logs but does not
+> prevent) — both logs are useful, but `advisor-guard.log` is the one that
+> proves Step 11 worked.
 
 ---
 
