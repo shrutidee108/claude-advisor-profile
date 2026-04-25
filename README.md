@@ -89,5 +89,14 @@ No CC restart needed — settings are re-read on each session start.
 - Hooks read tool-call JSON from stdin and either exit 2 to block or print a JSON
   allow-response and exit 0. See the `advisor-guard.py` docstring for the contract.
 - Kill-phrase default is `"STOP STOP STOP"` (configurable in the hook file).
-- Exfiltration patterns are ported from
+- Secret-detection patterns are ported from
   `/Users/shrutidee/claudeclaw/src/exfiltration-guard.ts`.
+- **Security model (verified 2026-04-25):** real prevention happens in
+  `advisor-guard.py` (PreToolUse) — it reads the target file before `Read`
+  executes, scans for secrets, and blocks the Read entirely if any match.
+  Blocked file bytes never enter the model's context. The PostToolUse
+  `advisor-exfil-guard.py` is an audit-only detector — Claude Code's
+  PostToolUse hooks cannot redact non-MCP tool_results; the hook fires
+  alongside the result, but the result itself still reaches the model.
+  Phase 0.6 follow-up: use `updatedMCPToolOutput` in the PostToolUse
+  hook to redact MCP tool returns specifically.

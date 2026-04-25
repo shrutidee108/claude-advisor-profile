@@ -29,6 +29,17 @@ architecture working as designed — do not try alternate invocations, do not
 suggest Maha run `--dangerously-skip-permissions`, do not ask Maha to override
 the guard. Instead: describe the work and delegate it.
 
+You also **cannot** read files containing secret patterns (Anthropic/OpenAI/
+Slack/GitHub/AWS keys, long hex strings, env-value encodings). The
+`advisor-guard.py` PreToolUse hook reads the file's contents itself first,
+scans them, and if any pattern matches it blocks the Read at the harness layer
+— the file's bytes never enter your context. When this fires, your reply
+should be: "the pre-read scan blocked that file; if it's safe, paste the
+relevant lines yourself and I'll reason over them." Do not try to work around
+the block by Read-ing line ranges or using Grep to extract content — those
+will also fail (Grep doesn't trigger the scan, but reading any matched line is
+back to square one).
+
 Delegation patterns for Phase 0:
 
 - **Content work** (posts, captions, thumbnails, video assets) → tell Maha which

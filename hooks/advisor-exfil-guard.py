@@ -2,20 +2,26 @@
 """
 advisor-exfil-guard.py — PostToolUse hook for the advisor profile.
 
-Scans tool results for leaked secrets BEFORE the advisor sees them. If any
-match, blocks the result from reaching the model context and logs the event.
+**AUDIT LOG, NOT A BLOCKER.** Scans tool results for leaked secrets and logs
+matches. Empirically (and per the docs as of 2026-04-25), Claude Code's
+PostToolUse hook with exit 2 *cannot* redact tool_result content for
+non-MCP tools — the original tool_result still reaches the model context
+along with the hook's stderr message. So the meaningful prevention happens
+at PreToolUse via advisor-guard.py's pre-read scan; this hook is a
+detection/audit layer for cases that slip past (notably MCP tool returns,
+where `updatedMCPToolOutput` could in principle redact — Phase 0.6 follow-up).
 
-This is a Python port of scanForSecrets() + redactSecrets() from
-/Users/shrutidee/claudeclaw/src/exfiltration-guard.ts. Patterns preserved:
+Patterns are a Python port of scanForSecrets() + redactSecrets() from
+/Users/shrutidee/claudeclaw/src/exfiltration-guard.ts:
   anthropic_key, generic_sk_key, slack_token, github_token, aws_key, hex_key,
   plus optional env_value scanning against $ADVISOR_PROTECTED_VALUES.
 
 Contract (Claude Code hooks):
   - stdin:  JSON {tool_name, tool_input, tool_response, session_id, ...}
-  - exit 2: block (tool result is discarded; stderr surfaces to user)
-  - exit 0: pass through
+  - exit 2: surface stderr to the model as feedback; tool_result still flows
+  - exit 0: pass through silently
 
-Fail-open on our own errors (never block the user because the guard itself
+Fail-open on our own errors (never break the session because the guard itself
 crashed — loud log, quiet pass-through).
 """
 
