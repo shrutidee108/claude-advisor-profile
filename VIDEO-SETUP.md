@@ -78,13 +78,25 @@ prompt. Use the same Anthropic account you use on the Mac.
 
 ## Step 5 — Clone the advisor repo
 
+The launcher detects its own location at startup, so the repo can live
+anywhere. `$HOME\.claude-advisor-profile` is a fine default; substitute any
+path you prefer (e.g., `D:\projects\.claude-advisor-profile`).
+
 ```powershell
 git clone https://github.com/shrutidee108/claude-advisor-profile.git $HOME\.claude-advisor-profile
 Set-Location $HOME\.claude-advisor-profile
 git log --oneline | Select-Object -First 3
 ```
 
-Last line should show 3 short commit hashes — that means the clone worked.
+Last line should show 3+ short commit hashes — that means the clone worked.
+
+> **If you have an empty `$HOME\.claude-advisor-profile` artifact** from an
+> earlier failed clone (cmd.exe doesn't expand `$HOME`, so cmd.exe leaves a
+> literal `$HOME\.claude-advisor-profile` directory), clean it up first:
+> ```powershell
+> Remove-Item -Recurse -Force "$HOME\.claude-advisor-profile" -EA SilentlyContinue
+> Remove-Item -Recurse -Force "$HOME\`$HOME" -EA SilentlyContinue
+> ```
 
 ---
 

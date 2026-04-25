@@ -147,7 +147,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/shrutidee/.claude/hooks/advisor-guard.py"
+            "command": "${REPO_DIR}/hooks/advisor-guard.py"
           }
         ]
       }
@@ -158,7 +158,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/shrutidee/.claude/hooks/advisor-kill-phrase.py"
+            "command": "${REPO_DIR}/hooks/advisor-kill-phrase.py"
           }
         ]
       }
@@ -169,7 +169,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/shrutidee/.claude/hooks/advisor-exfil-guard.py"
+            "command": "${REPO_DIR}/hooks/advisor-exfil-guard.py"
           }
         ]
       }

@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 # cc-advisor — launch the advisor profile on Mac/Linux.
 #
+# Detects its own location and substitutes ${REPO_DIR} in settings.json,
+# then passes the patched JSON inline to `claude --settings`. This means
+# the repo can live anywhere — no hard-coded paths in committed files.
+#
 # Usage:
 #   ./cc-advisor                    # interactive session
 #   ./cc-advisor -p "your prompt"   # one-shot print mode
@@ -8,12 +12,21 @@
 
 set -euo pipefail
 
-repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-settings="$repo_dir/settings.json"
+repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
+settings_file="$repo_dir/settings.json"
 
-if [[ ! -f "$settings" ]]; then
-    echo "settings.json not found at $settings" >&2
+if [[ ! -f "$settings_file" ]]; then
+    echo "settings.json not found at $settings_file" >&2
     exit 1
 fi
 
-exec claude --settings "$settings" --setting-sources user "$@"
+# Substitute ${REPO_DIR} with the absolute repo path. Forward slashes only on
+# Mac/Linux, no JSON escaping needed.
+patched="$(python3 -c "
+import sys, json
+with open('$settings_file') as f:
+    text = f.read()
+print(text.replace('\${REPO_DIR}', '$repo_dir'))
+")"
+
+exec claude --settings "$patched" --setting-sources user "$@"
