@@ -1,0 +1,181 @@
+{
+  "$schema-note": "Advisor profile (Windows). Load via: cc-advisor.ps1 — or directly: claude --settings %USERPROFILE%\\.claude-advisor-profile\\settings-windows.json --setting-sources user. Mirror of settings.json with Windows-flavored hook commands.",
+  "permissions": {
+    "deny": [
+      "Bash",
+      "Write",
+      "Edit",
+      "NotebookEdit",
+      "WebFetch",
+      "Agent",
+      "Task",
+      "mcp__playwright__*",
+      "mcp__browser-use__*",
+      "mcp__google-workspace__addAccount",
+      "mcp__google-workspace__removeAccount",
+      "mcp__google-workspace__createDocument",
+      "mcp__google-workspace__createSpreadsheet",
+      "mcp__google-workspace__createPresentation",
+      "mcp__google-workspace__createForm",
+      "mcp__google-workspace__createFolder",
+      "mcp__google-workspace__createFromTemplate",
+      "mcp__google-workspace__createGmailDraft",
+      "mcp__google-workspace__createGmailFilter",
+      "mcp__google-workspace__createGmailLabel",
+      "mcp__google-workspace__createCalendarEvent",
+      "mcp__google-workspace__updateCalendarEvent",
+      "mcp__google-workspace__updateGmailDraft",
+      "mcp__google-workspace__deleteCalendarEvent",
+      "mcp__google-workspace__deleteComment",
+      "mcp__google-workspace__deleteExcelSheet",
+      "mcp__google-workspace__deleteFile",
+      "mcp__google-workspace__deleteGmailDraft",
+      "mcp__google-workspace__deleteGmailFilter",
+      "mcp__google-workspace__deleteGmailMessage",
+      "mcp__google-workspace__deleteRange",
+      "mcp__google-workspace__deleteSpreadsheetSheet",
+      "mcp__google-workspace__editGoogleDoc",
+      "mcp__google-workspace__editTableCell",
+      "mcp__google-workspace__sendGmailDraft",
+      "mcp__google-workspace__appendExcelRows",
+      "mcp__google-workspace__appendSpreadsheetRows",
+      "mcp__google-workspace__appendToGoogleDoc",
+      "mcp__google-workspace__writeExcelCell",
+      "mcp__google-workspace__writeExcelRange",
+      "mcp__google-workspace__writeSpreadsheet",
+      "mcp__google-workspace__uploadFileToDrive",
+      "mcp__google-workspace__moveFile",
+      "mcp__google-workspace__copyFile",
+      "mcp__google-workspace__renameFile",
+      "mcp__obsidian__write_note",
+      "mcp__obsidian__patch_note",
+      "mcp__obsidian__delete_note",
+      "mcp__obsidian__move_note",
+      "mcp__obsidian__move_file",
+      "mcp__obsidian__update_frontmatter",
+      "mcp__obsidian__manage_tags",
+      "mcp__linear__create_issue",
+      "mcp__linear__update_issue"
+    ],
+    "allow": [
+      "Read",
+      "Grep",
+      "Glob",
+      "Skill",
+      "ToolSearch",
+      "AskUserQuestion",
+      "EnterPlanMode",
+      "ExitPlanMode",
+      "TodoWrite",
+      "TaskCreate",
+      "TaskGet",
+      "TaskList",
+      "TaskOutput",
+      "ScheduleWakeup",
+      "WebSearch",
+      "mcp__obsidian__read_note",
+      "mcp__obsidian__read_multiple_notes",
+      "mcp__obsidian__search_notes",
+      "mcp__obsidian__list_directory",
+      "mcp__obsidian__get_notes_info",
+      "mcp__obsidian__get_frontmatter",
+      "mcp__obsidian__get_vault_stats",
+      "mcp__smart-connections__lookup",
+      "mcp__smart-connections__connection",
+      "mcp__smart-connections__stats",
+      "mcp__smart-connections__validate",
+      "mcp__linear__get_issue",
+      "mcp__linear__list_issues",
+      "mcp__linear__list_projects",
+      "mcp__linear__list_teams",
+      "mcp__linear__search_issues",
+      "mcp__jcodemunch__get_file_outline",
+      "mcp__jcodemunch__get_file_tree",
+      "mcp__jcodemunch__get_repo_outline",
+      "mcp__jcodemunch__get_symbol",
+      "mcp__jcodemunch__get_symbols",
+      "mcp__jcodemunch__list_repos",
+      "mcp__jcodemunch__search_symbols",
+      "mcp__jcodemunch__search_text",
+      "mcp__google-workspace__listAccounts",
+      "mcp__google-workspace__listCalendarEvents",
+      "mcp__google-workspace__listCalendars",
+      "mcp__google-workspace__getCalendarEvent",
+      "mcp__google-workspace__searchCalendarEvents",
+      "mcp__google-workspace__listGmailMessages",
+      "mcp__google-workspace__listGmailThreads",
+      "mcp__google-workspace__listGmailLabels",
+      "mcp__google-workspace__listGmailFilters",
+      "mcp__google-workspace__listGmailDrafts",
+      "mcp__google-workspace__readGmailMessage",
+      "mcp__google-workspace__readGmailThread",
+      "mcp__google-workspace__readGmailDraft",
+      "mcp__google-workspace__searchGmail",
+      "mcp__google-workspace__listGoogleDocs",
+      "mcp__google-workspace__readGoogleDoc",
+      "mcp__google-workspace__getDocumentInfo",
+      "mcp__google-workspace__searchGoogleDocs",
+      "mcp__google-workspace__getRecentGoogleDocs",
+      "mcp__google-workspace__listDocumentTabs",
+      "mcp__google-workspace__findElement",
+      "mcp__google-workspace__listPresentations",
+      "mcp__google-workspace__readPresentation",
+      "mcp__google-workspace__listGoogleSheets",
+      "mcp__google-workspace__readSpreadsheet",
+      "mcp__google-workspace__getSpreadsheetInfo",
+      "mcp__google-workspace__listExcelFiles",
+      "mcp__google-workspace__readExcelFile",
+      "mcp__google-workspace__getExcelInfo",
+      "mcp__google-workspace__listExcelSheets",
+      "mcp__google-workspace__listForms",
+      "mcp__google-workspace__readForm",
+      "mcp__google-workspace__getFormResponses",
+      "mcp__google-workspace__listFolderContents",
+      "mcp__google-workspace__getFolderInfo",
+      "mcp__google-workspace__listRecentFiles",
+      "mcp__google-workspace__searchDrive",
+      "mcp__google-workspace__getShareableLink",
+      "mcp__google-workspace__downloadFromDrive",
+      "mcp__google-workspace__listComments",
+      "mcp__google-workspace__getComment"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py -3 \"%USERPROFILE%\\.claude-advisor-profile\\hooks\\advisor-guard.py\""
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py -3 \"%USERPROFILE%\\.claude-advisor-profile\\hooks\\advisor-kill-phrase.py\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py -3 \"%USERPROFILE%\\.claude-advisor-profile\\hooks\\advisor-exfil-guard.py\""
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true
+  }
+}

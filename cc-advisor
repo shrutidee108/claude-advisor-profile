@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# cc-advisor — launch the advisor profile on Mac/Linux.
+#
+# Usage:
+#   ./cc-advisor                    # interactive session
+#   ./cc-advisor -p "your prompt"   # one-shot print mode
+#   ./cc-advisor -p "..." ...       # any other flags pass through
+
+set -euo pipefail
+
+repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+settings="$repo_dir/settings.json"
+
+if [[ ! -f "$settings" ]]; then
+    echo "settings.json not found at $settings" >&2
+    exit 1
+fi
+
+exec claude --settings "$settings" --setting-sources user "$@"
