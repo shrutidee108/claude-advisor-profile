@@ -173,6 +173,17 @@
           }
         ]
       }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${REPO_DIR}/hooks/advisor-stop-wrapup.sh"
+          }
+        ]
+      }
     ]
   },
   "enabledPlugins": {
